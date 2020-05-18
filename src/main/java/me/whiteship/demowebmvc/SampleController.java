@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SampleController {
 
-    @RequestMapping(value = "/hello", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/hello",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String hello() {
         return "hello";

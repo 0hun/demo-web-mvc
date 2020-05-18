@@ -20,7 +20,8 @@ class SampleControllerTest {
     @Test
     void helloTest() throws Exception {
         this.mockMvc.perform(get("/hello")
-                    .contentType(MediaType.APPLICATION_JSON_VALUE))
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"));
