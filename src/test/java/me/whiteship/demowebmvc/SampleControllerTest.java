@@ -22,6 +22,11 @@ class SampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"));
+
+        this.mockMvc.perform(get("/hi"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("hello"));
     }
 
 
