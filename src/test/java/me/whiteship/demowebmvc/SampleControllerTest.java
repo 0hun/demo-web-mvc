@@ -4,6 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.xml.transform.Result;
+
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,10 +32,16 @@ class SampleControllerTest {
 
    @Test
     public void postEvent() throws Exception {
-       this.mockMvc.perform(post("/events")
+       ResultActions result = this.mockMvc.perform(post("/events")
                .param("name","keesun")
-               .param("limit","keesun"))
-               .andDo(print());
+               .param("limit","-10"))
+               .andDo(print())
+               .andExpect(status().isOk())
+               .andExpect(model().hasErrors());
+
+       ModelAndView mav = result.andReturn().getModelAndView();
+       Map<String, Object> model = mav.getModel();
+       System.out.println(model.size());
    }
 
 }
