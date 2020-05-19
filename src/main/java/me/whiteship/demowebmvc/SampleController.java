@@ -5,30 +5,48 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("event")
 public class SampleController {
 
-    @GetMapping("/events/form")
-    public String eventForm(Model model) {
-        Event event = new Event();
-        event.setLimit(50);
-        model.addAttribute("event", event);
-        return "events/form";
+    @GetMapping("/events/form/name")
+    public String eventFormName(Model model) {
+        model.addAttribute("event", new Event());
+        return "events/form-name";
     }
 
-    @PostMapping("/events")
-    public String createEvent(@Validated @ModelAttribute Event event,
+    @PostMapping("/events/form/name")
+    public String createEventFormNameSubmit(@Validated @ModelAttribute Event event,
                            BindingResult bindingResult,
-                           Model model) {
+                           SessionStatus sessionStatus) {
         if(bindingResult.hasErrors()) {
-            return "events/form";
+            return "events/form-name";
         }
 
-        return "redirect:events/list";
+        return "redirect:/events/form/limit";
+    }
+
+    @GetMapping("/events/form/limit")
+    public String eventsFormLimit(@ModelAttribute Event event, Model model) {
+        model.addAttribute("event", event);
+        return "events/form-limit";
+    }
+
+    @PostMapping("/events/form/limit")
+    public String eventsFormLimitSubmit(@Validated @ModelAttribute Event event,
+                                            BindingResult bindingResult,
+                                            SessionStatus sessionStatus) {
+        if(bindingResult.hasErrors()) {
+            return "events/form-limit";
+        }
+
+        sessionStatus.setComplete();
+        return "redirect:/events/list";
     }
 
     @GetMapping("/events/list")
