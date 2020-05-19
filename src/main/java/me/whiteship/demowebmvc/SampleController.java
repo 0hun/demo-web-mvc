@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class SampleController {
 
-    @RequestMapping("/events/{id}")
+    @PostMapping("/events")
     @ResponseBody
-    public Event getEvent(@PathVariable Integer id) {
+    public Event getEvent(@RequestParam String name) {
         Event event = new Event();
-        event.setId(id);
+        event.setName(name);
         return event;
     }
 

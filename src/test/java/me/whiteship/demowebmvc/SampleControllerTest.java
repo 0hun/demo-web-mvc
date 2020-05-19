@@ -19,10 +19,10 @@ class SampleControllerTest {
 
     @Test
     void getEvent() throws Exception {
-        this.mockMvc.perform(get("/events/1"))
+        this.mockMvc.perform(post("/events?name=keesun"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(1));
+                .andExpect(jsonPath("name").value("keesun"));
 
     }
 }
