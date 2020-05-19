@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class SampleController {
     }
 
     @GetMapping("/events/list")
-    public String getEvent(Model model) {
+    public String getEvent(Model model, @SessionAttribute LocalDateTime visitTime) {
+        System.out.println(visitTime);
         Event event = new Event();
         event.setName("spring");
         event.setLimit(10);
