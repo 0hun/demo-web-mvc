@@ -28,7 +28,7 @@ class SampleControllerTest {
     public void postEvent() throws Exception {
        this.mockMvc.perform(post("/events")
                .param("name","keesun")
-               .param("limit","20"))
+               .param("limit","keesun"))
                .andDo(print());
    }
 
