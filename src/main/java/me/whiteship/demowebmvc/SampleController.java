@@ -12,7 +12,7 @@ public class SampleController {
         Event event = new Event();
         event.setLimit(50);
         model.addAttribute("event", event);
-        return "/events/form";
+        return "events/form";
     }
 
     @PostMapping("/events")
