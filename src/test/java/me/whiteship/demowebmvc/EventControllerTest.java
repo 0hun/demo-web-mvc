@@ -1,6 +1,5 @@
 package me.whiteship.demowebmvc;
 
-import org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,19 +8,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.xml.transform.Result;
-import java.beans.Transient;
 import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.notNullValue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest
-class SampleControllerTest {
+class EventControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -64,6 +62,7 @@ class SampleControllerTest {
                .flashAttr("newEvent", newEvent))
                .andDo(print())
                .andExpect(status().isOk())
+               .andExpect(model().attributeExists("categories"))
                .andExpect(xpath("//p").nodeCount(2));
    }
 
